@@ -10,9 +10,22 @@ import (
 )
 
 func Convert(from string, to string, fileName string, extension string) {
-	fileName += "." + extension
+	extension = "." + extension
+	fileName += extension
 	OAS := readAllFrom(from)
 	writeAllTo(to, fileName, OAS)
+}
+
+func GenerateEntityFiles(to string) {
+	for _, i := range arr {
+		f, _ := os.OpenFile(
+			path.Join(to, i+".yaml"),
+			os.O_WRONLY|os.O_CREATE,
+			0644,
+		)
+		f.Close()
+	}
+
 }
 
 type oas struct {
@@ -46,6 +59,19 @@ const (
 	END        = ":\n"
 )
 
+var arr = []string{
+	PATHS,
+	SCHEMAS,
+	PARAMETERS,
+	SECURITY_SCHEMES,
+	REQUEST_BODIES,
+	RESPONSES,
+	HEADERS,
+	EXAMPLES,
+	LINKS,
+	CALLBACKS,
+}
+
 var extensions = []string{".yaml", ".yml"}
 
 func readAllFrom(from string) oas {
@@ -56,7 +82,7 @@ func readAllFrom(from string) oas {
 	}
 
 	for _, f := range files {
-		if f.IsDir() {
+		if f.IsDir() && f.Name() != "bin" {
 			var dir = path.Join(from, f.Name())
 			readFromEntityPath(&OAS, dir)
 		} else {
