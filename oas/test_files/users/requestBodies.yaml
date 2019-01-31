@@ -1,0 +1,10 @@
+User:
+  description: Optional description in *Markdown*
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/User'
+    text/plain:
+      schema:
+        type: string

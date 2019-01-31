@@ -1,0 +1,6 @@
+pathID:  
+  in: path
+  required: true
+  name: ID
+  schema:
+    type: integer

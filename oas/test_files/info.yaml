@@ -1,0 +1,11 @@
+openapi: 3.0.0
+info:
+  title: "API"
+  version: "1.0.0"
+  contact:
+    name: Contact Name
+    email: contact@example.com
+    url: https://example.com/
+tags:
+  - name: Metadata
+    description: Metadata related requests
